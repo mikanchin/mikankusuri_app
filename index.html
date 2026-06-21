@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>みかん薬 - お薬期限計算</title>
+    <!-- iOS PWA Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="みかん薬">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <link rel="manifest" href="manifest.json">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-logo">
+                <span class="logo-emoji">🍊</span>
+                <h1>みかん薬</h1>
+            </div>
+            <div class="header-actions">
+                <button id="theme-toggle" class="icon-btn" aria-label="テーマ切り替え">
+                    <i data-lucide="sun" class="sun-icon"></i>
+                    <i data-lucide="moon" class="moon-icon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="app-main">
+            <!-- Summary Info / Header -->
+            <div class="welcome-card">
+                <h2>お薬いつまである？ 🤔</h2>
+                <p>現在のお薬個数と1日の回数から、いつの分まであるかを瞬時に計算します。</p>
+            </div>
+
+            <!-- Toggle Form Trigger Button -->
+            <div class="action-bar">
+                <button id="toggle-form-btn" class="btn btn-primary">
+                    <i data-lucide="plus-circle"></i>
+                    <span>お薬を追加する</span>
+                </button>
+            </div>
+
+            <!-- Input Form Section (Collapsible) -->
+            <section id="form-section" class="form-section">
+                <form id="medicine-form" class="form-container">
+                    <h3 id="form-title">新しいお薬の入力</h3>
+                    <input type="hidden" id="med-id">
+                    
+                    <div class="form-group">
+                        <label for="med-name">お薬の名前 <span class="required">*</span></label>
+                        <input type="text" id="med-name" required placeholder="例: アトピカ, 心臓の薬">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="med-base-date">基準日（在庫を確認した日） <span class="required">*</span></label>
+                        <input type="date" id="med-base-date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="med-stock">基準日の現在個数（個 / 錠 / ml） <span class="required">*</span></label>
+                        <input type="number" id="med-stock" required min="0" step="any" placeholder="例: 30">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="med-daily-amount">1日あたりの使用個数 <span class="required">*</span></label>
+                        <input type="number" id="med-daily-amount" required min="0.001" step="any" placeholder="例: 2 (1日2錠なら 2、2日に1錠なら 0.5)">
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" id="cancel-form-btn" class="btn btn-secondary">閉じる</button>
+                        <button type="submit" class="btn btn-primary">計算・保存</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Medicines List (Excel-like Table) -->
+            <section class="list-section">
+                <div class="section-title">
+                    <h2>お薬の期限一覧</h2>
+                </div>
+                <div class="table-container">
+                    <table class="medicine-table">
+                        <thead>
+                            <tr>
+                                <th class="text-center" style="width: 60px;">順序</th>
+                                <th>お薬名</th>
+                                <th>基準日</th>
+                                <th class="text-right">現在個数</th>
+                                <th class="text-right">1日の個数</th>
+                                <th>いつまである？</th>
+                                <th class="text-center">在庫調整</th>
+                                <th class="text-center">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="medicine-list-body">
+                            <!-- Dynamic Content -->
+                        </tbody>
+                    </table>
+                    <div id="empty-state" class="empty-state">
+                        <i data-lucide="pill"></i>
+                        <p>登録されているお薬はありません。<br>「お薬を追加する」ボタンから登録してください。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings / Backup Section (Minimal Accordion) -->
+            <details class="settings-accordion">
+                <summary class="settings-summary">
+                    <i data-lucide="settings"></i> データのバックアップと管理
+                </summary>
+                <div class="settings-content">
+                    <div class="setting-item">
+                        <button id="export-btn" class="btn btn-secondary btn-sm"><i data-lucide="download"></i> エクスポート</button>
+                        <label for="import-file" class="btn btn-secondary btn-sm file-input-label">
+                            <i data-lucide="upload"></i> インポート
+                            <input type="file" id="import-file" accept=".json" style="display: none;">
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <button id="clear-all-btn" class="btn btn-danger btn-sm"><i data-lucide="trash-2"></i> 全データを消去</button>
+                    </div>
+                </div>
+            </details>
+        </main>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">メッセージ</div>
+
+    <script src="app.js"></script>
+</body>
+</html>
