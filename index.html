@@ -23,7 +23,26 @@
         <!-- Header -->
         <header class="app-header">
             <div class="header-logo">
-                <span class="logo-emoji">🍊</span>
+                <svg class="logo-img" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="45" fill="var(--primary-light)"/>
+                    <!-- 耳（立っている） -->
+                    <polygon points="35,35 48,15 52,38" fill="#8B5A2B"/>
+                    <polygon points="38,33 46,18 49,35" fill="#D2B48C"/>
+                    <polygon points="50,38 63,18 67,40" fill="#8B5A2B"/>
+                    <polygon points="53,36 61,21 64,38" fill="#D2B48C"/>
+                    <!-- 頭部 -->
+                    <circle cx="50" cy="48" r="18" fill="#D2B48C"/>
+                    <!-- マズル（短い口元、横顔） -->
+                    <ellipse cx="62" cy="54" r="10" rx="10" ry="7" fill="#EEDC82" transform="rotate(-5, 62, 54)"/>
+                    <circle cx="68" cy="52" r="3" fill="#12100E"/> <!-- 鼻 -->
+                    <!-- 目 -->
+                    <circle cx="52" cy="45" r="2.5" fill="#12100E"/>
+                    <circle cx="53" cy="44.2" r="0.8" fill="#FFFFFF"/> <!-- ハイライト -->
+                    <!-- 体（横向き、少し見える首元と背中） -->
+                    <path d="M36,75 Q40,55 48,55 L58,58 Q66,58 70,75 Z" fill="#4A4A4A"/> <!-- グレーの背中・首 -->
+                    <!-- 首輪（みかん色） -->
+                    <path d="M40,65 Q50,62 58,66" stroke="var(--primary)" stroke-width="3" fill="none" stroke-linecap="round"/>
+                </svg>
                 <h1>みかん薬</h1>
             </div>
             <div class="header-actions">
@@ -58,7 +77,7 @@
                     
                     <div class="form-group">
                         <label for="med-name">お薬の名前 <span class="required">*</span></label>
-                        <input type="text" id="med-name" required placeholder="例: アトピカ, 心臓の薬">
+                        <input type="text" id="med-name" required placeholder="例: ステロイド">
                     </div>
 
                     <div class="form-group">

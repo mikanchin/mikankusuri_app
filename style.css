@@ -108,8 +108,10 @@ body {
     gap: 8px;
 }
 
-.logo-emoji {
-    font-size: 1.5rem;
+.logo-img {
+    width: 32px;
+    height: 32px;
+    display: block;
     animation: float 3s ease-in-out infinite;
 }
 
