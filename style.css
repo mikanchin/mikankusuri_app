@@ -640,3 +640,194 @@ input:focus, select:focus {
     25% { transform: translateX(-3px); }
     75% { transform: translateX(3px); }
 }
+
+/* ==========================================================================
+   Responsive Mobile View (Card Layout)
+   ========================================================================== */
+@media (max-width: 640px) {
+    .table-container {
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        overflow-x: visible;
+    }
+
+    .medicine-table {
+        display: block;
+        min-width: 0;
+        border: none;
+    }
+
+    .medicine-table thead {
+        display: none;
+    }
+
+    .medicine-table tbody {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .medicine-table tbody tr {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        grid-template-areas:
+            "order name actions"
+            "expiry expiry expiry"
+            "stock daily date"
+            "controls controls controls";
+        background-color: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 16px;
+        box-shadow: var(--shadow-sm);
+        gap: 10px;
+        align-items: center;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .medicine-table tbody tr:hover {
+        background-color: var(--bg-card-hover);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .medicine-table td {
+        padding: 0 !important;
+        border: none !important;
+        white-space: normal !important;
+    }
+
+    .td-order {
+        grid-area: order;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .td-name {
+        grid-area: name;
+        font-size: 1.05rem;
+        font-weight: 700;
+        padding-left: 8px !important;
+    }
+
+    .td-actions {
+        grid-area: actions;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .td-expiry {
+        grid-area: expiry;
+        background-color: var(--primary-light);
+        color: var(--primary-dark);
+        border-radius: 12px;
+        padding: 12px 16px !important;
+        margin: 4px 0;
+        transition: background-color 0.3s;
+    }
+
+    .medicine-table tbody tr.danger-row {
+        background-color: var(--danger-light) !important;
+        border-color: rgba(255, 107, 107, 0.4);
+    }
+
+    .medicine-table tbody tr.danger-row .td-expiry {
+        background-color: var(--danger);
+        color: #FFFFFF;
+    }
+
+    .expiry-cell {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .med-table-expiry {
+        font-size: 0.95rem;
+        font-weight: 700;
+    }
+
+    .med-table-days {
+        font-size: 0.85rem;
+        font-weight: 700;
+        padding: 4px 10px;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .med-table-days.ok {
+        background-color: var(--success);
+        color: #FFFFFF;
+    }
+
+    .med-table-days.warn {
+        background-color: #FFFFFF;
+        color: var(--danger);
+    }
+
+    .td-stock {
+        grid-area: stock;
+        text-align: left !important;
+        font-size: 0.9rem;
+    }
+
+    .td-daily {
+        grid-area: daily;
+        text-align: left !important;
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .td-daily::before {
+        content: "/";
+        color: var(--border);
+        margin-right: 4px;
+    }
+
+    .td-date {
+        grid-area: date;
+        text-align: right !important;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+    }
+
+    .td-date::before {
+        content: "基準日: ";
+    }
+
+    .td-controls {
+        grid-area: controls;
+        width: 100%;
+        margin-top: 6px;
+    }
+
+    .table-controls {
+        display: flex;
+        width: 100%;
+        gap: 8px;
+    }
+
+    .table-controls .med-btn-count {
+        flex: 1;
+        padding: 10px 0;
+        font-size: 0.85rem;
+        border-radius: 10px;
+        background-color: var(--border);
+        color: var(--text-main);
+        border: none;
+        font-weight: 600;
+        text-align: center;
+        display: inline-block;
+    }
+
+    .table-controls .med-btn-count:hover {
+        background-color: var(--primary-light);
+        color: var(--primary-dark);
+    }
+}
